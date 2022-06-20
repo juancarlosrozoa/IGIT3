@@ -1,7 +1,8 @@
 <?php
 
-use GuzzleHttp\Middleware;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,15 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Auth::routes();
 
-Route::resource('tipos',  App\Http\Controllers\TipoController::class)->Middleware('auth');
-Route::resource('vehiculos',  App\Http\Controllers\VehiculoController::class)->Middleware('auth');
-Route::resource('tarifas',  App\Http\Controllers\TarifaController::class)->Middleware('auth');
-Route::resource('pagos',  App\Http\Controllers\PagoController::class)->Middleware('auth');
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/user',[HomeController::class,'getUser']);
